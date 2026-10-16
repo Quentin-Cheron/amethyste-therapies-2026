@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+---
+<section class="container-x pb-16 md:pb-24" aria-labelledby="cta-title">
+  <div data-reveal class="flex flex-col items-start justify-between gap-8 rounded-xl bg-primary-soft p-8 md:p-12 lg:flex-row lg:items-center lg:p-[72px]">
+    <div class="max-w-[834px]">
+      <h2 id="cta-title" class="text-4xl sm:text-[2.75rem]">Prendre rendez-vous</h2>
+      <p class="mt-3 text-[17px] text-ink-soft">
+        Sur Resalib, ou par téléphone au {SITE.phone}. Au cabinet, à domicile ou en visio.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3">
+      <a href={SITE.resalib} target="_blank" rel="noopener" class="btn-primary">
+        Réserver sur Resalib <Icon name="arrow-up-right" size={18} />
+      </a>
+      <p class="text-[13px] text-ink-soft">Première consultation adulte · 55 min · 65 €</p>
+    </div>
+  </div>
+</section>

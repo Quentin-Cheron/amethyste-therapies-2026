@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../data/site';
+
+const title = `Carte : ${SITE.name}, ${SITE.street}, ${SITE.city}`;
+const src = `https://www.google.com/maps?q=${encodeURIComponent(`${SITE.street} ${SITE.postalCode} ${SITE.city}`)}&output=embed`;
+---
+<div data-map data-src={src} data-title={title} class="size-full">
+  <div data-map-placeholder class="flex size-full flex-col items-center justify-center gap-5 p-8 text-center">
+    <span class="inline-flex size-14 items-center justify-center rounded-full bg-surface text-primary-text shadow-pop"><Icon name="map-pin" size={26} /></span>
+    <div class="max-w-[420px]">
+      <p class="font-serif text-2xl">Afficher la carte</p>
+      <p class="mt-2 text-sm leading-relaxed text-ink-soft">
+        Cette carte est fournie par Google Maps. L'afficher envoie votre adresse IP à Google et peut déposer des cookies sur votre appareil.
+        <a href="/confidentialite" class="text-primary-text underline underline-offset-2">En savoir plus</a>
+      </p>
+    </div>
+    <div class="flex flex-col items-center gap-3 sm:flex-row">
+      <button type="button" data-map-accept class="btn-primary px-6 py-3.5">J'accepte et j'affiche la carte</button>
+      <a href={SITE.mapsUrl} target="_blank" rel="noopener" class="link-arrow text-sm">Ouvrir dans Google Maps <Icon name="arrow-up-right" size={14} /></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const KEY = 'amethyste-map-consent';
+
+  const loadMaps = () => {
+    document.querySelectorAll<HTMLElement>('[data-map]').forEach((box) => {
+      if (box.querySelector('iframe')) return;
+      const frame = document.createElement('iframe');
+      frame.src = box.dataset.src!;
+      frame.title = box.dataset.title!;
+      frame.className = 'size-full border-0';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      box.replaceChildren(frame);
+    });
+  };
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target as HTMLElement).closest('[data-map-accept]')) return;
+    try {
+      localStorage.setItem(KEY, '1');
+    } catch {
+      /* stockage indisponible : la carte s'affiche pour cette page seulement */
+    }
+    loadMaps();
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    try {
+      if (localStorage.getItem(KEY) === '1') loadMaps();
+    } catch {
+      /* ignore */
+    }
+  });
+</script>

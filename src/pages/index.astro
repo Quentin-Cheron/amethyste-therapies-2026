@@ -1,0 +1,617 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import MapEmbed from "../components/MapEmbed.astro";
+import type { ComponentProps } from "astro/types";
+import CtaFinal from "../components/CtaFinal.astro";
+import {
+    APPROACHES_FEATURED,
+    APPROACHES_OTHER,
+    FAQ,
+    REVIEWS,
+    SITE,
+    TROUBLES,
+} from "../data/site";
+
+type IconName = ComponentProps<typeof Icon>["name"];
+
+const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+};
+
+const publics = ["Enfants dès 3 ans", "Ados", "Adultes", "Couples", "Familles"];
+const steps = [
+    {
+        n: "01",
+        t: "Réservez en ligne",
+        d: "Choisissez un créneau sur Resalib en 2 minutes, ou appelez directement le cabinet.",
+    },
+    {
+        n: "02",
+        t: "Première consultation",
+        d: "55 min pour faire connaissance, comprendre votre demande et définir ensemble les objectifs.",
+    },
+    {
+        n: "03",
+        t: "Un suivi sur mesure",
+        d: "Des séances d'1h15, avec l'approche la plus adaptée. On avance à votre rythme.",
+    },
+];
+const modalites: { icon: IconName; t: string; d: string }[] = [
+    {
+        icon: "map-pin",
+        t: "Au cabinet",
+        d: "Centre Médical du Vert Bocage · parking gratuit",
+    },
+    {
+        icon: "car",
+        t: "À domicile",
+        d: "Pour enfants, ados, étudiants et adultes",
+    },
+    { icon: "video", t: "En visio", d: "Téléconsultation, où que vous soyez" },
+];
+const plans = [
+    {
+        title: "Enfants",
+        sub: "Psychothérapie, hypnose, PNL, ICV, EMDR",
+        lines: [
+            ["Première consultation", "45 min", "55 €"],
+            ["Séance de suivi", "55 min", "70 €"],
+        ],
+        featured: false,
+    },
+    {
+        title: "Adultes",
+        sub: "Psychothérapie, hypnose, PNL, ICV, EMDR",
+        lines: [
+            ["Première consultation", "55 min", "65 €"],
+            ["Séance de suivi", "1h15", "80 €"],
+        ],
+        featured: true,
+    },
+    {
+        title: "Coaching",
+        sub: "Vie, développement personnel ou professionnel",
+        lines: [
+            ["Première séance", "1h30", "75 €"],
+            ["Séance de suivi", "1h30", "100 €"],
+        ],
+        featured: false,
+    },
+];
+const autresTarifs = [
+    "Adolescents",
+    "Étudiants",
+    "Couple",
+    "Famille",
+    "À domicile",
+];
+const homeReviews = [
+    {
+        ...REVIEWS[1],
+        tag: "Suivi thérapeutique",
+        style: "bg-surface",
+        tagStyle: "bg-primary-soft text-primary-text",
+    },
+    {
+        ...REVIEWS[0],
+        tag: "Dépression",
+        style: "bg-primary-soft",
+        tagStyle: "bg-surface text-ink",
+    },
+    {
+        ...REVIEWS[8],
+        tag: "Thérapie brève",
+        style: "bg-surface",
+        tagStyle: "bg-primary-soft text-primary-text",
+    },
+];
+---
+
+<Layout
+    title="Thérapeute EMDR & Hypnose à Salon-de-Provence | Stéphanie Morier"
+    description="Anxiété, trauma, dépression, burn-out : thérapies brèves (EMDR, hypnose, TCC) pour enfants dès 3 ans, ados et adultes. Cabinet avec parking, domicile ou visio. Dès 55 €."
+    jsonLd={[faqLd]}
+>
+    <section
+        class="container-x grid items-center gap-12 pb-16 pt-10 lg:grid-cols-[1fr_560px] lg:gap-16 lg:pb-24 lg:pt-[72px]"
+        aria-labelledby="hero-title"
+    >
+        <div data-hero class="flex max-w-[656px] flex-col gap-7">
+            <h1
+                id="hero-title"
+                class="text-[2.6rem] sm:text-6xl xl:text-[68px]"
+            >
+                Thérapies brèves à Salon-de-Provence
+            </h1>
+            <p class="max-w-[540px] text-[17px] leading-[1.55] text-ink-soft sm:text-[19px]">
+                Je suis Stéphanie Morier, praticienne EMDR et hypnothérapeute.
+                Je reçois enfants, adolescents et adultes pour l'anxiété, les
+                traumatismes, la dépression ou le burn-out, au cabinet, à
+                domicile ou en visio.
+            </p>
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <a
+                    href={SITE.resalib}
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-primary"
+                >
+                    Réserver sur Resalib{" "}
+                    <Icon name="arrow-up-right" size={18} />
+                </a>
+                <a href={`tel:${SITE.phoneTel}`} class="btn-secondary">
+                    <Icon name="phone" size={16} />
+                    {SITE.phone}
+                </a>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px]">
+                <span class="inline-flex items-center gap-2 font-semibold">
+                    <span class="inline-flex text-accent" aria-hidden="true">
+                        {[0, 1, 2, 3, 4].map(() => (
+                            <Icon name="star" size={15} class="fill-current" />
+                        ))}
+                    </span>
+                    27 avis de patients
+                </span>
+                <span class="text-ink-soft">En cabinet depuis 2021</span>
+            </div>
+            <p class="max-w-[520px] font-serif text-[15px] italic leading-relaxed text-ink-soft">
+                « Le bonheur n'est pas un objectif mais un carburant pour vivre.
+                » <span class="not-italic">— Christophe André</span>
+            </p>
+        </div>
+
+        <div
+            data-hero-visual
+            class="relative mx-auto aspect-[560/620] w-full max-w-[560px] overflow-hidden rounded-xl"
+        >
+            <img
+                src="https://images.unsplash.com/photo-1728931710048-fa21f9f9340c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+                alt="Cabinet de thérapie lumineux et apaisant à Salon-de-Provence"
+                width="560"
+                height="620"
+                fetchpriority="high"
+                class="h-[108%] w-full object-cover will-change-transform"
+            />
+        </div>
+    </section>
+
+    <section class="bg-surface" aria-labelledby="pourquoi-title">
+        <div class="container-x section-y grid gap-12 lg:grid-cols-[500px_1fr] lg:gap-20">
+            <div data-reveal class="flex flex-col gap-6">
+                <h2 id="pourquoi-title" class="h2">
+                    Pourquoi consulter ?
+                </h2>
+                <p class="text-[17px] leading-relaxed text-ink-soft">
+                    Pour prendre un temps pour soi, surmonter des troubles
+                    anxieux, des traumatismes ou des épreuves difficiles, mieux
+                    se connaître et mieux communiquer. Les thérapies brèves
+                    s'adressent à tous, dès 3 ans.
+                </p>
+                <ul class="flex flex-wrap gap-1.5 pt-2">
+                    {publics.map((p) => (
+                        <li class="chip">{p}</li>
+                    ))}
+                </ul>
+            </div>
+            <div class="flex flex-col gap-8">
+                <ul data-stagger class="grid gap-x-10 sm:grid-cols-2">
+                    {TROUBLES.map((t) => (
+                        <li class="flex items-start gap-3 border-b border-line py-5 font-serif text-[1.35rem] leading-snug">
+                            <Icon
+                                name="check"
+                                size={20}
+                                class="mt-1.5 shrink-0 text-primary-text"
+                            />
+                            {t}
+                        </li>
+                    ))}
+                </ul>
+                <p class="text-ink-soft">
+                    Et aussi : deuil, violences subies, difficultés scolaires,
+                    relationnelles ou professionnelles, confiance en soi.
+                </p>
+                <button
+                    type="button"
+                    data-open-chat
+                    class="link-arrow self-start text-left"
+                >
+                    <Icon name="message-circle" size={18} />
+                    Vous ne savez pas quelle approche choisir ? Trouvez-la en 1
+                    minute
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section
+        id="approches"
+        class="container-x section-y"
+        aria-labelledby="approches-title"
+    >
+        <div
+            data-reveal
+            class="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+        >
+            <h2 id="approches-title" class="h2">
+                Mes approches
+            </h2>
+            <p class="max-w-[400px] text-ink-soft">
+                J'utilise des méthodes humanistes, cognitives et
+                comportementales, et je choisis avec vous celle qui vous
+                convient.
+            </p>
+        </div>
+
+        <div data-stagger class="grid gap-5 lg:grid-cols-3">
+            {APPROACHES_FEATURED.map((a, i) => (
+                <article class="flex flex-col gap-5 rounded-xl border border-line bg-surface p-8 lg:p-9">
+                    <div class="flex items-center gap-3">
+                        <Icon
+                            name={a.icon as IconName}
+                            size={28}
+                            class={
+                                i === 0 ? "text-ink-soft" : "text-primary-text"
+                            }
+                        />
+                        <span
+                            class={`eyebrow ${i === 0 ? "text-ink-soft" : "text-accent"}`}
+                        >
+                            {a.tag}
+                        </span>
+                    </div>
+                    <h3 class="text-2xl leading-snug">{a.title}</h3>
+                    <p class="flex-1 leading-relaxed text-ink-soft">{a.desc}</p>
+                    <a href={a.href} class="link-arrow">
+                        En savoir plus <Icon name="arrow-right" size={16} />
+                    </a>
+                </article>
+            ))}
+        </div>
+
+        <ul data-stagger class="mt-12 grid gap-x-10 md:grid-cols-2">
+            {APPROACHES_OTHER.map((a) => (
+                <li>
+                    <a
+                        href={a.href}
+                        class="group flex items-center gap-6 border-b border-line py-[22px] transition hover:bg-primary-soft/60"
+                    >
+                        <span class="w-[72px] shrink-0 text-[13px] font-bold uppercase tracking-[1px] text-accent">
+                            {a.abbr}
+                        </span>
+                        <span class="flex-1 text-lg">{a.name}</span>
+                        <Icon
+                            name="arrow-right"
+                            size={18}
+                            class="text-ink-soft transition group-hover:translate-x-1"
+                        />
+                    </a>
+                </li>
+            ))}
+        </ul>
+        <a href="/approches" class="link-arrow mt-10">
+            Voir toutes les approches
+            <Icon name="arrow-right" size={18} />
+        </a>
+    </section>
+
+    <section class="bg-primary-soft" aria-labelledby="deroule-title">
+        <div class="container-x section-y flex flex-col gap-14">
+            <h2 id="deroule-title" data-reveal class="h2">
+                Comment ça se passe ?
+            </h2>
+            <ol data-stagger class="grid md:grid-cols-3">
+                {steps.map((s) => (
+                    <li class="flex flex-col gap-4 border-t border-line pr-10 pt-8">
+                        <span class="font-serif text-4xl text-primary-text">
+                            {s.n}
+                        </span>
+                        <h3 class="text-2xl">{s.t}</h3>
+                        <p class="leading-relaxed text-ink-soft">{s.d}</p>
+                    </li>
+                ))}
+            </ol>
+            <ul data-stagger class="grid gap-5 md:grid-cols-3">
+                {modalites.map((m) => (
+                    <li class="flex items-center gap-4 rounded-xl border border-line bg-surface p-6">
+                        <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-line text-ink-soft">
+                            <Icon name={m.icon} size={22} />
+                        </span>
+                        <div>
+                            <p class="font-serif text-lg">{m.t}</p>
+                            <p class="text-sm text-ink-soft">{m.d}</p>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <section
+        class="container-x section-y grid items-center gap-12 lg:grid-cols-[480px_1fr] lg:gap-24"
+        aria-labelledby="quisuisje-title"
+    >
+        <div
+            data-reveal
+            class="mx-auto aspect-[480/580] w-full max-w-[480px] overflow-hidden rounded-xl"
+        >
+            <img
+                src="/images/picture.webp"
+                alt="Stéphanie Morier, thérapeute EMDR et hypnothérapeute à Salon-de-Provence"
+                width="480"
+                height="580"
+                loading="lazy"
+                class="size-full object-cover"
+            />
+        </div>
+        <div data-reveal class="flex max-w-[704px] flex-col gap-6">
+            <h2 id="quisuisje-title" class="h2">
+                Qui suis-je ?
+            </h2>
+            <p class="text-[17px] leading-relaxed text-ink-soft">
+                J'accompagne enfants, adolescents et adultes sur une large gamme
+                de problématiques : addictions, dépressions, burn-out, troubles
+                du stress post-traumatique, phobies, angoisses, violences
+                subies.
+            </p>
+            <p class="text-[17px] leading-relaxed text-ink-soft">
+                Mon approche repose sur l'empathie, l'absence de jugement et des
+                méthodes validées scientifiquement, adaptées à chacun. Après
+                plusieurs années à Montélimar, j'exerce à Salon-de-Provence
+                depuis 2023.
+            </p>
+            <ul class="flex flex-col gap-2.5">
+                {[
+                    "Praticienne EMDR · NMO EMDR+",
+                    "Hypnothérapie clinique cognitive & comportementale",
+                    "Psychotraumatologie, ICV, PNL, EFT",
+                ].map((p) => (
+                    <li class="flex items-center gap-3">
+                        <Icon
+                            name="check"
+                            size={20}
+                            class="shrink-0 text-primary-text"
+                        />
+                        {p}
+                    </li>
+                ))}
+            </ul>
+            <a href="/qui-suis-je" class="link-arrow self-start">
+                Mon parcours et mes formations{" "}
+                <Icon name="arrow-right" size={18} />
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-surface" aria-labelledby="tarifs-title">
+        <div class="container-x section-y flex flex-col gap-12">
+            <div
+                data-reveal
+                class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+            >
+                <h2 id="tarifs-title" class="h2">
+                    Tarifs
+                </h2>
+                <p class="max-w-[400px] text-ink-soft">
+                    Tous les rendez-vous peuvent avoir lieu au cabinet ou en
+                    téléconsultation. Tarifs spécifiques pour ados, étudiants,
+                    couples, familles et à domicile.
+                </p>
+            </div>
+            <div data-stagger class="grid gap-5 lg:grid-cols-3">
+                {plans.map((p) => (
+                    <article
+                        class={`flex flex-col gap-6 rounded-xl p-8 lg:p-9 ${p.featured ? "border border-primary bg-primary-soft" : "bg-bg"}`}
+                    >
+                        <h3 class="text-3xl">{p.title}</h3>
+                        <p class="text-sm text-ink-soft">{p.sub}</p>
+                        <ul class="flex-1">
+                            {p.lines.map(([name, dur, price]) => (
+                                <li class="flex items-center justify-between border-b border-line/80 py-5 last:border-0">
+                                    <div>
+                                        <p class="font-semibold">{name}</p>
+                                        <p class="text-sm text-ink-soft">
+                                            {dur}
+                                        </p>
+                                    </div>
+                                    <p class="font-serif text-4xl text-primary-text">
+                                        {price}
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                        <a
+                            href={SITE.resalib}
+                            target="_blank"
+                            rel="noopener"
+                            class={p.featured ? "btn-primary" : "btn-secondary"}
+                        >
+                            Réserver
+                        </a>
+                    </article>
+                ))}
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+                <span class="font-semibold">Voir aussi :</span>
+                {autresTarifs.map((t) => (
+                    <a
+                        href="/tarifs"
+                        class="chip gap-2 hover:border-primary hover:bg-primary-soft"
+                    >
+                        {t}
+                        <Icon
+                            name="arrow-up-right"
+                            size={14}
+                            class="text-ink-soft"
+                        />
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="container-x section-y flex flex-col gap-12"
+        aria-labelledby="avis-title"
+    >
+        <div
+            data-reveal
+            class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"
+        >
+            <h2 id="avis-title" class="h2">
+                Avis de patients
+            </h2>
+            <div class="flex flex-col gap-2 lg:items-end">
+                <p class="flex items-end gap-3">
+                    <span class="font-serif text-7xl leading-none text-primary-text">
+                        <span data-count="27">27</span>
+                    </span>
+                    <span class="pb-2 font-semibold">avis patients</span>
+                </p>
+                <p class="text-[13px] text-ink-soft">
+                    Cabinet · Psychologue.net · Médoucine · Therapeutes.com
+                </p>
+            </div>
+        </div>
+        <ul data-stagger class="grid gap-5 lg:grid-cols-3">
+            {homeReviews.map((r) => (
+                <li
+                    class={`flex flex-col justify-between gap-12 rounded-xl border border-line p-8 ${r.style}`}
+                >
+                    <blockquote class="font-serif text-2xl leading-snug">
+                        « {r.q} »
+                    </blockquote>
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="text-sm font-semibold">
+                                {r.name.split(" ")[0]}
+                                {r.name.includes(" ")
+                                    ? ` ${r.name.split(" ")[1][0]}.`
+                                    : ""}
+                            </p>
+                            <p class="text-[13px] text-ink-soft">{r.src}</p>
+                        </div>
+                        <span
+                            class={`rounded-md px-3 py-1.5 text-xs font-semibold ${r.tagStyle}`}
+                        >
+                            {r.tag}
+                        </span>
+                    </div>
+                </li>
+            ))}
+        </ul>
+        <a href="/avis" class="link-arrow self-start">
+            Lire les 27 avis <Icon name="arrow-right" size={18} />
+        </a>
+    </section>
+
+    <section id="faq" class="bg-surface" aria-labelledby="faq-title">
+        <div class="container-x section-y grid gap-12 lg:grid-cols-[400px_1fr] lg:gap-24">
+            <div
+                data-reveal
+                class="flex flex-col gap-6 lg:sticky lg:top-40 lg:self-start"
+            >
+                <h2 id="faq-title" class="h2">
+                    Questions fréquentes
+                </h2>
+                <p class="text-ink-soft">
+                    Une autre question ? Appelez le {SITE.phone} ou écrivez à{" "}
+                    {SITE.email}.
+                </p>
+            </div>
+            <div data-faq class="border-t border-line">
+                {FAQ.map((f, i) => (
+                    <details class="group border-b border-line" open={i === 0}>
+                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-serif text-xl [&::-webkit-details-marker]:hidden">
+                            <h3 class="text-xl">{f.q}</h3>
+                            <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-bg text-ink transition group-open:bg-primary-strong group-open:text-white">
+                                <Icon
+                                    name="plus"
+                                    size={18}
+                                    class="group-open:hidden"
+                                />
+                                <Icon
+                                    name="minus"
+                                    size={18}
+                                    class="hidden group-open:block"
+                                />
+                            </span>
+                        </summary>
+                        <div data-faq-panel class="overflow-hidden">
+                            <p class="max-w-[640px] pb-7 leading-relaxed text-ink-soft">
+                                {f.a}
+                            </p>
+                        </div>
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="container-x section-y grid items-center gap-12 lg:grid-cols-[1fr_640px]"
+        aria-labelledby="contact-title"
+    >
+        <div data-reveal class="flex flex-col gap-8">
+            <h2 id="contact-title" class="h2">
+                Venir au cabinet
+            </h2>
+            <ul class="flex flex-col gap-5">
+                {[
+                    {
+                        icon: "map-pin",
+                        l: "Adresse",
+                        v: `${SITE.place}\n${SITE.street}, ${SITE.postalCode} ${SITE.city}`,
+                    },
+                    { icon: "car", l: "Accès", v: "Parking gratuit sur place" },
+                    { icon: "phone", l: "Téléphone", v: SITE.phone },
+                    { icon: "mail", l: "E-mail", v: SITE.email },
+                ].map((r) => (
+                    <li class="flex items-start gap-4">
+                        <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-text">
+                            <Icon name={r.icon as IconName} size={20} />
+                        </span>
+                        <div>
+                            <p class="eyebrow text-ink-soft">{r.l}</p>
+                            <p class="whitespace-pre-line text-[17px]">{r.v}</p>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <a
+                    href={SITE.resalib}
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-primary"
+                >
+                    Prendre rendez-vous <Icon name="arrow-up-right" size={18} />
+                </a>
+                <a
+                    href={SITE.mapsUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-secondary"
+                >
+                    <Icon name="navigation" size={16} />
+                    Itinéraire
+                </a>
+            </div>
+        </div>
+        <div
+            data-reveal
+            class="relative aspect-[640/580] overflow-hidden rounded-xl bg-primary-soft"
+        >
+            <MapEmbed />
+        </div>
+    </section>
+
+    <CtaFinal />
+</Layout>

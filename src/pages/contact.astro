@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Icon from '../components/Icon.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import type { ComponentProps } from 'astro/types';
+import { SITE } from '../data/site';
+
+type IconName = ComponentProps<typeof Icon>['name'];
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Contact' }];
+const quick: { t: string; v: string; href: string; ext?: boolean }[] = [
+  { t: 'Réserver en ligne', v: 'Resalib · 24h/24', href: SITE.resalib, ext: true },
+  { t: 'Appeler', v: SITE.phone, href: `tel:${SITE.phoneTel}` },
+  { t: 'Écrire', v: SITE.email, href: `mailto:${SITE.email}` },
+];
+const sujets = ['Moi', 'Mon enfant', 'Mon couple', 'Ma famille'];
+const details: { icon: IconName; l: string; v: string }[] = [
+  { icon: 'map-pin', l: 'Adresse', v: `${SITE.place}\n${SITE.street}, ${SITE.postalCode} ${SITE.city}` },
+  { icon: 'car', l: 'Accès', v: 'Parking gratuit sur place' },
+  { icon: 'phone', l: 'Téléphone', v: SITE.phone },
+  { icon: 'mail', l: 'E-mail', v: SITE.email },
+];
+const field = 'w-full rounded-lg border border-line bg-bg px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-soft/60 focus:border-primary';
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: 'Contact', item: `${SITE.url}/contact` },
+    ],
+  },
+];
+---
+<Layout
+  title="Contact et accès au cabinet de Salon-de-Provence | Améthyste Thérapies"
+  description="Contactez Stéphanie Morier, thérapeute à Salon-de-Provence : 06 27 34 66 30, rendez-vous sur Resalib 24h/24. Centre Médical du Vert Bocage, parking gratuit."
+  jsonLd={ld}
+>
+  <section class="container-x grid gap-12 pb-16 pt-10 lg:grid-cols-2 lg:gap-20 lg:pb-24 lg:pt-16">
+    <div data-hero class="flex flex-col gap-7">
+      <Breadcrumb items={crumbs} />
+      <h1 class="text-4xl sm:text-5xl xl:text-[52px]">Contact et accès au cabinet de Salon-de-Provence</h1>
+      <p class="max-w-[560px] text-lg leading-relaxed text-ink-soft">
+        Une question avant de vous lancer ? Écrivez-moi ou appelez : je vous réponds personnellement.
+      </p>
+      <ul class="flex flex-col divide-y divide-line border-y border-line">
+        {quick.map((q) => (
+          <li>
+            <a href={q.href} target={q.ext ? '_blank' : undefined} rel={q.ext ? 'noopener' : undefined} class="group flex items-center justify-between gap-4 py-5">
+              <span>
+                <span class="block text-[13px] text-ink-soft">{q.t}</span>
+                <span class="block break-all text-lg font-semibold group-hover:text-primary-text">{q.v}</span>
+              </span>
+              <Icon name="arrow-right" size={18} class="shrink-0 text-ink-soft transition group-hover:translate-x-1" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div role="note" class="flex gap-3 rounded-xl border border-accent/30 bg-[#fdf3ec] p-5">
+        <Icon name="triangle-alert" size={20} class="mt-0.5 shrink-0 text-accent" />
+        <div>
+          <p class="font-semibold">En cas d'urgence ou de détresse</p>
+          <p class="mt-1 text-sm leading-relaxed text-ink-soft">Le cabinet n'est pas un service d'urgence. Appelez le 15 (SAMU) ou le 3114, numéro national de prévention du suicide, gratuit et disponible 24h/24.</p>
+        </div>
+      </div>
+    </div>
+
+    <form data-contact-form data-reveal class="flex flex-col gap-5 self-start rounded-xl border border-line bg-surface p-7 sm:p-9">
+      <h2 class="text-3xl">Envoyer un message</h2>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="flex flex-col gap-2 text-sm font-semibold">Prénom et nom
+          <input name="nom" required autocomplete="name" placeholder="Marie Dupont" class={field} />
+        </label>
+        <label class="flex flex-col gap-2 text-sm font-semibold">Téléphone
+          <input name="tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00" class={field} />
+        </label>
+      </div>
+      <label class="flex flex-col gap-2 text-sm font-semibold">E-mail
+        <input name="email" type="email" required autocomplete="email" placeholder="marie@exemple.fr" class={field} />
+      </label>
+      <fieldset class="flex flex-col gap-2">
+        <legend class="mb-2 text-sm font-semibold">La consultation concerne</legend>
+        <div class="flex flex-wrap gap-2">
+          {sujets.map((s, i) => (
+            <label class="cursor-pointer">
+              <input type="radio" name="sujet" value={s} checked={i === 0} class="peer sr-only" />
+              <span class="inline-flex rounded-lg border border-line bg-bg px-4 py-2 text-sm transition peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-primary-strong">{s}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <label class="flex flex-col gap-2 text-sm font-semibold">Votre message
+        <textarea name="message" rows="4" placeholder="Quelques mots sur votre demande (facultatif)" class={field}></textarea>
+      </label>
+      <label class="flex items-start gap-3 text-[13px] leading-snug text-ink-soft">
+        <input type="checkbox" name="consent" required class="mt-0.5 size-4 shrink-0 accent-primary-strong" />
+        <span>J'accepte que mes données soient utilisées uniquement pour me recontacter (RGPD). <a href="/confidentialite" class="text-primary-text underline underline-offset-2">En savoir plus</a></span>
+      </label>
+      <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <p data-form-status role="status" aria-live="polite" class="hidden rounded-lg p-4 text-[15px] leading-snug"></p>
+      <button type="submit" data-form-submit class="btn-primary disabled:cursor-wait disabled:opacity-60">Envoyer le message <Icon name="send" size={16} /></button>
+      <p class="text-[13px] text-ink-soft">Je vous réponds personnellement, en dehors des temps de séance.</p>
+    </form>
+  </section>
+
+  <section class="bg-surface" aria-labelledby="acces">
+    <div class="container-x section-y grid items-center gap-12 lg:grid-cols-[1fr_640px] lg:gap-20">
+      <div data-reveal class="flex flex-col gap-8">
+        <h2 id="acces" class="text-4xl xl:text-5xl">Cabinet de thérapies à Salon-de-Provence</h2>
+        <ul class="flex flex-col gap-5">
+          {details.map((r) => (
+            <li class="flex items-start gap-4">
+              <span class="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary-text"><Icon name={r.icon} size={20} /></span>
+              <div>
+                <p class="eyebrow text-ink-soft">{r.l}</p>
+                <p class="whitespace-pre-line text-[17px]">{r.v}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href={SITE.resalib} target="_blank" rel="noopener" class="btn-primary">Prendre rendez-vous <Icon name="arrow-up-right" size={18} /></a>
+          <a href={SITE.mapsUrl} target="_blank" rel="noopener" class="btn-secondary"><Icon name="navigation" size={16} />Itinéraire</a>
+        </div>
+      </div>
+      <div data-reveal class="aspect-[640/580] overflow-hidden rounded-xl bg-primary-soft">
+        <MapEmbed />
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,99 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CtaFinal from '../components/CtaFinal.astro';
+import { SITE } from '../data/site';
+
+const timeline = [
+  { y: '2021', t: 'Ouverture du cabinet à Montélimar', d: 'Premières années d\'accompagnement : 11 avis patients recueillis.' },
+  { y: '2023', t: 'Installation à Salon-de-Provence', d: 'Centre Médical du Vert Bocage, avec parking gratuit, domicile et visio.' },
+  { y: 'Aujourd\'hui', t: '27 avis patients', d: 'Enfants, ados, adultes, couples et familles accompagnés.' },
+];
+const formations = [
+  'NMO EMDR+ · Neurothérapie par mouvements oculaires',
+  'Hypnothérapie clinique cognitive & comportementale',
+  'Thérapies cognitivo-comportementales (TCC)',
+  'Intégration du Cycle de la Vie (ICV)',
+  'PNL & coaching personnel et professionnel',
+  'EFT · Psychotraumatologie · Relaxologie',
+];
+const troubles = [
+  'Addictions', 'Dépression', 'Burn-out', 'Stress post-traumatique', 'Phobies', 'Angoisses',
+  'Violences subies', 'Difficultés relationnelles', 'Familiales', 'Scolaires', 'Professionnelles', 'Développement personnel',
+];
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Qui suis-je ?' }];
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    item: c.href ? `${SITE.url}${c.href}` : `${SITE.url}/qui-suis-je`,
+  })),
+};
+---
+<Layout
+  title="Stéphanie Morier, thérapeute EMDR et hypnothérapeute à Salon-de-Provence"
+  description="Parcours, formations et approche de Stéphanie Morier : praticienne EMDR NMO EMDR+, hypnothérapeute, TCC, ICV, PNL, EFT. Cabinet à Salon-de-Provence depuis 2023."
+  jsonLd={[breadcrumbLd]}
+  ogImage="/images/picture.webp"
+>
+  <section class="container-x grid items-center gap-12 pb-16 pt-10 lg:grid-cols-[1fr_480px] lg:gap-20 lg:pb-24 lg:pt-16" aria-labelledby="h1">
+    <div data-hero class="flex flex-col gap-7">
+      <Breadcrumb items={crumbs} />
+      <h1 id="h1" class="max-w-[760px] text-4xl sm:text-5xl xl:text-[52px]">Stéphanie Morier, thérapeute EMDR et hypnothérapeute à Salon-de-Provence</h1>
+      <p class="max-w-[620px] text-[19px] leading-relaxed text-ink-soft">
+        Mon approche thérapeutique, axée sur l'empathie et l'absence de jugement, repose sur des méthodes validées scientifiquement et adaptées aux besoins de chacun.
+      </p>
+      <div>
+        <p class="font-serif text-3xl">Stéphanie Morier</p>
+        <p class="text-[15px] text-ink-soft">Praticienne EMDR · NMO EMDR+</p>
+      </div>
+    </div>
+    <div data-hero-visual class="mx-auto aspect-[480/580] w-full max-w-[480px] overflow-hidden rounded-xl">
+      <img src="/images/picture.webp" alt="Portrait de Stéphanie Morier, thérapeute à Salon-de-Provence" width="763" height="1023" fetchpriority="high" class="size-full object-cover" />
+    </div>
+  </section>
+
+  <section class="bg-surface" aria-labelledby="parcours">
+    <div class="container-x section-y grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div>
+        <h2 id="parcours" data-reveal class="h2 mb-10">De Montélimar à Salon-de-Provence</h2>
+        <ol data-stagger class="relative flex flex-col gap-9 border-l border-line pl-8">
+          {timeline.map((s) => (
+            <li class="relative">
+              <span class="absolute -left-[39px] top-1.5 size-3.5 rounded-full border-2 border-primary bg-surface" aria-hidden="true"></span>
+              <p class="eyebrow text-accent">{s.y}</p>
+              <h3 class="mt-1 text-2xl">{s.t}</h3>
+              <p class="mt-2 text-ink-soft">{s.d}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div>
+        <h2 data-reveal class="h2 mb-10">Mes formations</h2>
+        <ul data-stagger class="border-t border-line">
+          {formations.map((f) => (
+            <li class="border-b border-line py-4">
+              <p>{f}</p>
+              <p class="text-[13px] text-ink-soft">Organisme · année</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-primary-soft" aria-labelledby="troubles">
+    <div class="container-x section-y flex flex-col gap-10">
+      <h2 id="troubles" data-reveal class="h2">Troubles traités</h2>
+      <ul data-stagger class="flex flex-wrap gap-3">
+        {troubles.map((t) => <li class="chip px-4 py-2.5 text-base">{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <div class="pt-16 md:pt-24"><CtaFinal /></div>
+</Layout>

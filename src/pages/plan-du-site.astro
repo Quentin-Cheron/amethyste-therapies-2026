@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { APPROCHES } from '../data/approches';
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Plan du site' }];
+const groups = [
+  {
+    title: 'Le cabinet',
+    links: [
+      { label: 'Accueil', href: '/' },
+      { label: 'Qui suis-je ?', href: '/qui-suis-je' },
+      { label: 'Tarifs', href: '/tarifs' },
+      { label: 'Avis patients', href: '/avis' },
+      { label: 'Questions fréquentes', href: '/#faq' },
+      { label: 'Contact et accès', href: '/contact' },
+    ],
+  },
+  {
+    title: 'Mes approches',
+    links: [
+      { label: 'Toutes les approches', href: '/approches' },
+      ...APPROCHES.map((a) => ({ label: a.nav, href: `/approches/${a.slug}` })),
+    ],
+  },
+  {
+    title: 'Informations légales',
+    links: [
+      { label: 'Mentions légales', href: '/mentions-legales' },
+      { label: 'Politique de confidentialité', href: '/confidentialite' },
+      { label: 'Plan du site', href: '/plan-du-site' },
+    ],
+  },
+];
+---
+<Layout
+  title="Plan du site | Améthyste Thérapies"
+  description="Retrouvez toutes les pages du site Améthyste Thérapies : cabinet, approches thérapeutiques, tarifs, avis, contact et informations légales."
+>
+  <section class="container-x pb-16 pt-10 md:pb-24 lg:pt-16">
+    <Breadcrumb items={crumbs} />
+    <h1 data-hero class="mb-12 mt-8 text-4xl sm:text-5xl">Plan du site</h1>
+    <div data-stagger class="grid gap-12 md:grid-cols-3">
+      {groups.map((g) => (
+        <nav aria-label={g.title}>
+          <h2 class="mb-4 border-b border-line pb-3 text-2xl">{g.title}</h2>
+          <ul class="flex flex-col gap-2.5">
+            {g.links.map((l) => (
+              <li><a href={l.href} class="text-[17px] hover:text-primary-text hover:underline">{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+  </section>
+</Layout>
