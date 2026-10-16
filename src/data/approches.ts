@@ -1,5 +1,6 @@
 export interface Approche {
     slug: string;
+    title?: string;
     nav: string;
     fullName: string;
     h1: [string, string];
@@ -34,6 +35,7 @@ const seance: [string, string][] = [
 export const APPROCHES: Approche[] = [
     {
         slug: "emdr",
+        title: "Thérapie EMDR à Salon-de-Provence",
         nav: "EMDR",
         fullName: "EMDR · Eye Movement Desensitization and Reprocessing",
         h1: ["Thérapie EMDR", "à Salon-de-Provence"],
@@ -143,11 +145,12 @@ export const APPROCHES: Approche[] = [
     },
     {
         slug: "nmo-emdr-plus",
+        title: "NMO EMDR+ (mouvements oculaires) à Salon-de-Provence",
         nav: "NMO EMDR+",
         fullName: "NMO EMDR+ · Neurothérapie par Mouvements Oculaires",
         h1: ["NMO EMDR+", "à Salon-de-Provence"],
         lead: "La Neurothérapie par Mouvements Oculaires est la version de l'EMDR pratiquée au cabinet : des mouvements oculaires guidés pour accompagner le cerveau dans le retraitement des souvenirs difficiles.",
-        meta: "NMO EMDR+ (Neurothérapie par Mouvements Oculaires) à Salon-de-Provence : la version de l'EMDR pratiquée par Stéphanie Morier. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "NMO EMDR+ (neurothérapie par mouvements oculaires) à Salon-de-Provence : la version de l'EMDR pratiquée au cabinet. Séances dès 65 €.",
         summary:
             "La version de l'EMDR pratiquée au cabinet, par mouvements oculaires guidés.",
         cta: "Réserver une séance NMO EMDR+",
@@ -196,7 +199,7 @@ export const APPROCHES: Approche[] = [
         fullName: "Psychotraumatologie",
         h1: ["Psychotraumatologie", "à Salon-de-Provence"],
         lead: "La psychotraumatologie s'intéresse aux traumatismes psychiques et à leurs effets durables. L'objectif : comprendre ce qui se passe en vous, puis alléger ce qui pèse.",
-        meta: "Psychotraumatologie à Salon-de-Provence : comprendre et soigner les effets d'un traumatisme (stress post-traumatique, violences, accidents). Séances dès 65 €.",
+        meta: "Psychotraumatologie à Salon-de-Provence : comprendre et soigner les effets d'un traumatisme (stress post-traumatique, violences, accidents). Dès 65 €.",
         summary: "Comprendre et soigner les effets du trauma.",
         cta: "Réserver une séance",
         facts: seance,
@@ -249,11 +252,12 @@ export const APPROCHES: Approche[] = [
     },
     {
         slug: "icv",
+        title: "ICV, Intégration du Cycle de la Vie à Salon-de-Provence",
         nav: "ICV",
         fullName: "ICV · Intégration du Cycle de la Vie",
         h1: ["Intégration du Cycle de la Vie", "à Salon-de-Provence"],
         lead: "L'ICV s'intéresse aux événements vécus tôt dans la vie et à leur impact durable. Une approche pour dénouer ce qui pèse encore, souvent sans qu'on sache pourquoi.",
-        meta: "ICV (Intégration du Cycle de la Vie) à Salon-de-Provence : une approche pour les traumas précoces et leurs effets durables. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "ICV (Intégration du Cycle de la Vie) à Salon-de-Provence : une approche pour les traumas précoces et leurs effets durables. Dès 65 €.",
         summary: "Intégration du Cycle de la Vie, pour les traumas précoces.",
         cta: "Réserver une séance ICV",
         facts: seance,
@@ -307,7 +311,7 @@ export const APPROCHES: Approche[] = [
         fullName: "Psychologie cognitive",
         h1: ["Psychologie cognitive", "à Salon-de-Provence"],
         lead: "La psychologie cognitive étudie la façon dont nous percevons, interprétons et mémorisons. En séance, elle aide à comprendre pourquoi certaines pensées s'imposent à vous.",
-        meta: "Psychologie cognitive à Salon-de-Provence : comprendre ses pensées, ses croyances et ses réactions pour mieux les transformer. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "Psychologie cognitive à Salon-de-Provence : comprendre ses pensées, ses croyances et ses réactions pour mieux les transformer. Dès 65 €.",
         summary:
             "Comprendre comment vos pensées et vos croyances influencent ce que vous ressentez.",
         cta: "Réserver une séance",
@@ -365,6 +369,7 @@ export const APPROCHES: Approche[] = [
     },
     {
         slug: "eft",
+        title: "EFT, libération émotionnelle à Salon-de-Provence",
         nav: "EFT",
         fullName: "EFT · Emotional Freedom Techniques",
         h1: [
@@ -372,7 +377,7 @@ export const APPROCHES: Approche[] = [
             "à Salon-de-Provence",
         ],
         lead: "L'EFT associe des tapotements sur des points du corps et l'attention portée à une émotion ou à une pensée gênante. Une technique douce pour apaiser le stress, simple à refaire chez soi.",
-        meta: "EFT (Emotional Freedom Techniques, technique de libération émotionnelle) à Salon-de-Provence : apaiser stress, peurs et émotions. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "EFT (technique de libération émotionnelle) à Salon-de-Provence : apaiser stress, peurs et émotions par des tapotements. Séances dès 65 €.",
         summary:
             "Apaiser le stress et les émotions grâce à des tapotements sur des points précis.",
         cta: "Réserver une séance EFT",
@@ -426,11 +431,12 @@ export const APPROCHES: Approche[] = [
     },
     {
         slug: "tcc",
+        title: "TCC, thérapie cognitivo-comportementale à Salon-de-Provence",
         nav: "TCC",
         fullName: "TCC · Thérapies cognitivo-comportementales",
         h1: ["Thérapies cognitivo-comportementales", "à Salon-de-Provence"],
         lead: "Les TCC identifient les pensées et les comportements qui entretiennent la souffrance, puis les transforment pas à pas avec des exercices concrets. Une thérapie structurée et orientée vers vos objectifs.",
-        meta: "TCC (thérapies cognitivo-comportementales) à Salon-de-Provence : anxiété, phobies, dépression, burn-out. Exercices concrets, séances de 55 min à 1h15, dès 65 €.",
+        meta: "TCC (thérapies cognitivo-comportementales) à Salon-de-Provence : anxiété, phobies, dépression, burn-out. Exercices concrets, dès 65 €.",
         summary:
             "Identifier les pensées et comportements qui entretiennent la souffrance et les transformer.",
         cta: "Réserver une séance TCC",
@@ -541,7 +547,7 @@ export const APPROCHES: Approche[] = [
         fullName: "Hypnothérapie clinique cognitive & comportementale",
         h1: ["Hypnothérapie", "à Salon-de-Provence"],
         lead: "Un état de concentration naturel pour accéder à vos ressources et modifier durablement des schémas : anxiété, sommeil, addictions, confiance en soi.",
-        meta: "Hypnothérapie clinique cognitive et comportementale à Salon-de-Provence : anxiété, sommeil, addictions, confiance en soi. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "Hypnothérapie clinique cognitive et comportementale à Salon-de-Provence : anxiété, sommeil, addictions, confiance en soi. Dès 65 €.",
         summary: "Accéder à vos ressources pour changer durablement.",
         cta: "Réserver une séance d'hypnose",
         facts: seance,
@@ -586,7 +592,7 @@ export const APPROCHES: Approche[] = [
         fullName: "ACP · Approche Centrée sur la Personne",
         h1: ["Approche centrée sur la personne", "à Salon-de-Provence"],
         lead: "Un espace d'écoute, sans jugement, pour comprendre ce qui se joue en vous et dans vos relations. Vous êtes la personne qui connaît le mieux votre situation.",
-        meta: "Approche centrée sur la personne à Salon-de-Provence : une écoute bienveillante, sans jugement, pour avancer à votre rythme. Séances de 55 min à 1h15, dès 65 €.",
+        meta: "Approche centrée sur la personne à Salon-de-Provence : une écoute bienveillante, sans jugement, pour avancer à votre rythme. Dès 65 €.",
         summary:
             "Un espace d'écoute pour comprendre ce qui se joue dans la relation.",
         cta: "Réserver une séance",
@@ -694,7 +700,7 @@ export const APPROCHES: Approche[] = [
         fullName: "Coaching personnel et professionnel",
         h1: ["Coaching personnel et professionnel", "à Salon-de-Provence"],
         lead: "Un accompagnement tourné vers l'avenir pour clarifier vos objectifs, prendre une décision ou franchir une étape, dans votre vie personnelle comme professionnelle.",
-        meta: "Coaching personnel et professionnel à Salon-de-Provence : objectifs, confiance, transition de carrière, prise de décision. 1re séance 75 € (1h30), suivi 100 €.",
+        meta: "Coaching personnel et professionnel à Salon-de-Provence : objectifs, confiance, transition de carrière, décisions. 1re séance 75 € (1h30).",
         summary: "Vie, développement personnel ou professionnel.",
         cta: "Réserver une séance de coaching",
         facts: [
