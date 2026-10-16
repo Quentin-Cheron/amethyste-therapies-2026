@@ -1,47 +1,77 @@
 ---
-import MapPin from '@lucide/astro/icons/map-pin';
-import Car from '@lucide/astro/icons/car';
-import Video from '@lucide/astro/icons/video';
-import Phone from '@lucide/astro/icons/phone';
-import CalendarCheck from '@lucide/astro/icons/calendar-check';
-import ArrowRight from '@lucide/astro/icons/arrow-right';
-import ArrowUpRight from '@lucide/astro/icons/arrow-up-right';
-import Check from '@lucide/astro/icons/check';
-import Plus from '@lucide/astro/icons/plus';
-import Minus from '@lucide/astro/icons/minus';
-import Mail from '@lucide/astro/icons/mail';
-import X from '@lucide/astro/icons/x';
-import MessageCircle from '@lucide/astro/icons/message-circle';
-import Search from '@lucide/astro/icons/search';
-import Star from '@lucide/astro/icons/star';
-import ChevronDown from '@lucide/astro/icons/chevron-down';
-import ChevronRight from '@lucide/astro/icons/chevron-right';
-import Home from '@lucide/astro/icons/house';
-import Navigation from '@lucide/astro/icons/navigation';
-import Moon from '@lucide/astro/icons/moon';
-import Users from '@lucide/astro/icons/users';
-import Heart from '@lucide/astro/icons/heart';
-import Clock from '@lucide/astro/icons/clock';
-import TriangleAlert from '@lucide/astro/icons/triangle-alert';
-import Menu from '@lucide/astro/icons/menu';
-import Send from '@lucide/astro/icons/send';
-import Brain from '@lucide/astro/icons/brain';
-import Eye from '@lucide/astro/icons/eye';
-import Stethoscope from '@lucide/astro/icons/stethoscope';
-import ArrowLeft from '@lucide/astro/icons/arrow-left';
+import MapPin from "@lucide/astro/icons/map-pin";
+import Car from "@lucide/astro/icons/car";
+import Video from "@lucide/astro/icons/video";
+import Phone from "@lucide/astro/icons/phone";
+import CalendarCheck from "@lucide/astro/icons/calendar-check";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
+import Check from "@lucide/astro/icons/check";
+import Plus from "@lucide/astro/icons/plus";
+import Minus from "@lucide/astro/icons/minus";
+import Mail from "@lucide/astro/icons/mail";
+import X from "@lucide/astro/icons/x";
+import MessageCircle from "@lucide/astro/icons/message-circle";
+import Search from "@lucide/astro/icons/search";
+import Star from "@lucide/astro/icons/star";
+import ChevronDown from "@lucide/astro/icons/chevron-down";
+import ChevronRight from "@lucide/astro/icons/chevron-right";
+import Home from "@lucide/astro/icons/house";
+import Navigation from "@lucide/astro/icons/navigation";
+import Moon from "@lucide/astro/icons/moon";
+import Users from "@lucide/astro/icons/users";
+import Heart from "@lucide/astro/icons/heart";
+import Clock from "@lucide/astro/icons/clock";
+import TriangleAlert from "@lucide/astro/icons/triangle-alert";
+import Menu from "@lucide/astro/icons/menu";
+import Send from "@lucide/astro/icons/send";
+import Brain from "@lucide/astro/icons/brain";
+import Eye from "@lucide/astro/icons/eye";
+import Stethoscope from "@lucide/astro/icons/stethoscope";
+import ArrowLeft from "@lucide/astro/icons/arrow-left";
 
 const icons = {
-  'map-pin': MapPin, car: Car, video: Video, phone: Phone, 'calendar-check': CalendarCheck,
-  'arrow-right': ArrowRight, 'arrow-up-right': ArrowUpRight, check: Check, plus: Plus, minus: Minus,
-  mail: Mail, x: X, 'message-circle': MessageCircle, search: Search, star: Star,
-  'chevron-down': ChevronDown, 'chevron-right': ChevronRight, home: Home, navigation: Navigation,
-  moon: Moon, users: Users, heart: Heart, clock: Clock, 'triangle-alert': TriangleAlert,
-  menu: Menu, send: Send, brain: Brain, eye: Eye, stethoscope: Stethoscope, 'arrow-left': ArrowLeft,
+    "map-pin": MapPin,
+    car: Car,
+    video: Video,
+    phone: Phone,
+    "calendar-check": CalendarCheck,
+    "arrow-right": ArrowRight,
+    "arrow-up-right": ArrowUpRight,
+    check: Check,
+    plus: Plus,
+    minus: Minus,
+    mail: Mail,
+    x: X,
+    "message-circle": MessageCircle,
+    search: Search,
+    star: Star,
+    "chevron-down": ChevronDown,
+    "chevron-right": ChevronRight,
+    home: Home,
+    navigation: Navigation,
+    moon: Moon,
+    users: Users,
+    heart: Heart,
+    clock: Clock,
+    "triangle-alert": TriangleAlert,
+    menu: Menu,
+    send: Send,
+    brain: Brain,
+    eye: Eye,
+    stethoscope: Stethoscope,
+    "arrow-left": ArrowLeft,
 } as const;
 
 export type IconName = keyof typeof icons;
-interface Props { name: IconName; size?: number; class?: string; stroke?: number }
+interface Props {
+    name: IconName;
+    size?: number;
+    class?: string;
+    stroke?: number;
+}
 const { name, size = 18, class: className, stroke = 1.75 } = Astro.props;
 const Cmp = icons[name];
 ---
+
 <Cmp size={size} stroke-width={stroke} class={className} aria-hidden="true" />

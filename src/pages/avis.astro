@@ -1,74 +1,137 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import Icon from '../components/Icon.astro';
-import CtaFinal from '../components/CtaFinal.astro';
-import { REVIEWS, REVIEW_SOURCES, SITE } from '../data/site';
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Icon from "../components/Icon.astro";
+import CtaFinal from "../components/CtaFinal.astro";
+import { REVIEWS, REVIEW_SOURCES, SITE } from "../data/site";
 
-const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Avis' }];
+const crumbs = [{ label: "Accueil", href: "/" }, { label: "Avis" }];
 const filters = [...new Set(REVIEWS.flatMap((r) => r.tags))];
 const ld = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
-      { '@type': 'ListItem', position: 2, name: 'Avis', item: `${SITE.url}/avis` },
-    ],
-  },
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Accueil",
+                item: SITE.url,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Avis",
+                item: `${SITE.url}/avis`,
+            },
+        ],
+    },
 ];
 ---
+
 <Layout
-  title="Avis patients sur Stéphanie Morier, thérapeute à Salon-de-Provence"
-  description="27 témoignages de patients recueillis depuis 2021 à Montélimar et Salon-de-Provence, sur le cabinet et les plateformes Psychologue.net, Médoucine et Therapeutes.com."
-  jsonLd={ld}
+    title="Avis patients sur Stéphanie Morier, thérapeute à Salon-de-Provence"
+    description="27 témoignages de patients recueillis depuis 2021 à Montélimar et Salon-de-Provence, sur le cabinet et les plateformes Psychologue.net, Médoucine et Therapeutes.com."
+    jsonLd={ld}
 >
-  <section class="container-x grid items-end gap-10 pb-12 pt-10 lg:grid-cols-[1fr_440px] lg:gap-20 lg:pt-16">
-    <div data-hero class="flex flex-col gap-6">
-      <Breadcrumb items={crumbs} />
-      <h1 class="max-w-[820px] text-4xl sm:text-5xl xl:text-[54px]">Avis patients sur Stéphanie Morier, thérapeute à Salon-de-Provence</h1>
-      <p class="max-w-[620px] text-lg leading-relaxed text-ink-soft">
-        27 témoignages recueillis depuis 2021, au cabinet de Montélimar puis à Salon-de-Provence, et sur les plateformes spécialisées.
-      </p>
-    </div>
-    <aside data-reveal class="rounded-xl bg-surface p-7">
-      <p class="flex items-end gap-3"><span class="font-serif text-7xl leading-none text-primary-text"><span data-count="27">27</span></span><span class="pb-2 font-semibold">avis patients</span></p>
-      <dl class="mt-5 divide-y divide-line">
-        {REVIEW_SOURCES.map(([n, v]) => (
-          <div class="flex justify-between py-2.5 text-sm"><dt class="text-ink-soft">{n}</dt><dd class="font-semibold">{v}</dd></div>
-        ))}
-      </dl>
-    </aside>
-  </section>
+    <section class="container-x grid items-end gap-10 pb-12 pt-10 lg:grid-cols-[1fr_440px] lg:gap-20 lg:pt-16">
+        <div data-hero class="flex flex-col gap-6">
+            <Breadcrumb items={crumbs} />
+            <h1 class="max-w-[820px] text-4xl sm:text-5xl xl:text-[54px]">
+                Avis patients sur Stéphanie Morier, thérapeute à
+                Salon-de-Provence
+            </h1>
+            <p class="max-w-[620px] text-lg leading-relaxed text-ink-soft">
+                27 témoignages recueillis depuis 2021, au cabinet de Montélimar
+                puis à Salon-de-Provence, et sur les plateformes spécialisées.
+            </p>
+        </div>
+        <aside data-reveal class="rounded-xl bg-surface p-7">
+            <p class="flex items-end gap-3">
+                <span class="font-serif text-7xl leading-none text-primary-text">
+                    <span data-count="27">27</span>
+                </span>
+                <span class="pb-2 font-semibold">avis patients</span>
+            </p>
+            <dl class="mt-5 divide-y divide-line">
+                {REVIEW_SOURCES.map(([n, v]) => (
+                    <div class="flex justify-between py-2.5 text-sm">
+                        <dt class="text-ink-soft">{n}</dt>
+                        <dd class="font-semibold">{v}</dd>
+                    </div>
+                ))}
+            </dl>
+        </aside>
+    </section>
 
-  <section class="container-x pb-6" aria-label="Filtrer les avis">
-    <div class="flex flex-wrap gap-2 border-y border-line py-4">
-      <button type="button" data-filter="all" aria-pressed="true" class="rounded-lg border border-line bg-surface px-4 py-2 text-sm transition aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white">Tous</button>
-      {filters.map((f) => (
-        <button type="button" data-filter={f} aria-pressed="false" class="rounded-lg border border-line bg-surface px-4 py-2 text-sm transition aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white">{f}</button>
-      ))}
-    </div>
-  </section>
+    <section class="container-x pb-6" aria-label="Filtrer les avis">
+        <div class="flex flex-wrap gap-2 border-y border-line py-4">
+            <button
+                type="button"
+                data-filter="all"
+                aria-pressed="true"
+                class="rounded-lg border border-line bg-surface px-4 py-2 text-sm transition aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+            >
+                Tous
+            </button>
+            {filters.map((f) => (
+                <button
+                    type="button"
+                    data-filter={f}
+                    aria-pressed="false"
+                    class="rounded-lg border border-line bg-surface px-4 py-2 text-sm transition aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-white"
+                >
+                    {f}
+                </button>
+            ))}
+        </div>
+    </section>
 
-  <section class="container-x pb-12 pt-6">
-    <ul class="gap-5 md:columns-2 xl:columns-3">
-      {REVIEWS.map((r) => (
-        <li data-review data-tags={r.tags.join('|')} class="mb-5 break-inside-avoid rounded-xl border border-line bg-surface p-7">
-          <blockquote class:list={['font-serif leading-snug', r.big ? 'text-2xl' : 'text-xl']}>« {r.q} »</blockquote>
-          <div class="mt-6 flex items-center gap-3">
-            <span class="inline-flex size-10 items-center justify-center rounded-full bg-primary-soft font-semibold text-primary-text" aria-hidden="true">{r.name[0]}</span>
-            <div>
-              <p class="text-sm font-semibold">{r.name}</p>
-              <p class="text-[13px] text-ink-soft">{r.src}</p>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-    <div class="mt-4 text-center">
-      <a href={SITE.resalib} target="_blank" rel="noopener" class="btn-secondary">Afficher les 15 autres avis <Icon name="arrow-up-right" size={16} /></a>
-    </div>
-  </section>
+    <section class="container-x pb-12 pt-6">
+        <ul class="gap-5 md:columns-2 xl:columns-3">
+            {REVIEWS.map((r) => (
+                <li
+                    data-review
+                    data-tags={r.tags.join("|")}
+                    class="mb-5 break-inside-avoid rounded-xl border border-line bg-surface p-7"
+                >
+                    <blockquote
+                        class:list={[
+                            "font-serif leading-snug",
+                            r.big ? "text-2xl" : "text-xl",
+                        ]}
+                    >
+                        « {r.q} »
+                    </blockquote>
+                    <div class="mt-6 flex items-center gap-3">
+                        <span
+                            class="inline-flex size-10 items-center justify-center rounded-full bg-primary-soft font-semibold text-primary-text"
+                            aria-hidden="true"
+                        >
+                            {r.name[0]}
+                        </span>
+                        <div>
+                            <p class="text-sm font-semibold">{r.name}</p>
+                            <p class="text-[13px] text-ink-soft">{r.src}</p>
+                        </div>
+                    </div>
+                </li>
+            ))}
+        </ul>
+        <div class="mt-4 text-center">
+            <a
+                href={SITE.resalib}
+                target="_blank"
+                rel="noopener"
+                class="btn-secondary"
+            >
+                Afficher les 15 autres avis{" "}
+                <Icon name="arrow-up-right" size={16} />
+            </a>
+        </div>
+    </section>
 
-  <div class="pt-12 md:pt-16"><CtaFinal /></div>
+    <div class="pt-12 md:pt-16">
+        <CtaFinal />
+    </div>
 </Layout>

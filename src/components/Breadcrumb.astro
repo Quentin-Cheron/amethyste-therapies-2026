@@ -1,22 +1,27 @@
 ---
-import Icon from './Icon.astro';
+import Icon from "./Icon.astro";
 
 interface Props {
-  items: { label: string; href?: string }[];
+    items: { label: string; href?: string }[];
 }
 const { items } = Astro.props;
 ---
+
 <nav aria-label="Fil d'Ariane" class="text-sm text-ink-soft">
-  <ol class="flex flex-wrap items-center gap-2">
-    {items.map((item, i) => (
-      <li class="inline-flex items-center gap-2">
-        {i > 0 && <Icon name="chevron-right" size={14} />}
-        {item.href ? (
-          <a href={item.href} class="hover:text-primary-text">{item.label}</a>
-        ) : (
-          <span class="text-ink" aria-current="page">{item.label}</span>
-        )}
-      </li>
-    ))}
-  </ol>
+    <ol class="flex flex-wrap items-center gap-2">
+        {items.map((item, i) => (
+            <li class="inline-flex items-center gap-2">
+                {i > 0 && <Icon name="chevron-right" size={14} />}
+                {item.href ? (
+                    <a href={item.href} class="hover:text-primary-text">
+                        {item.label}
+                    </a>
+                ) : (
+                    <span class="text-ink" aria-current="page">
+                        {item.label}
+                    </span>
+                )}
+            </li>
+        ))}
+    </ol>
 </nav>

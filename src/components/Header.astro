@@ -1,58 +1,111 @@
 ---
-import Icon from './Icon.astro';
-import { NAV, SITE } from '../data/site';
+import Icon from "./Icon.astro";
+import { NAV, SITE } from "../data/site";
 
 const { pathname } = Astro.url;
 ---
+
 <header class="sticky top-0 z-40 bg-bg/95 backdrop-blur" id="site-header">
-  <div class="hidden bg-primary-soft lg:block">
-    <div class="container-x flex items-center justify-between py-2.5 text-[13px] text-ink-soft">
-      <div class="flex items-center gap-7">
-        <span class="inline-flex items-center gap-2"><Icon name="map-pin" size={14} />{SITE.place}, {SITE.city}</span>
-        <span class="inline-flex items-center gap-2"><Icon name="car" size={14} />Parking gratuit</span>
-        <span class="inline-flex items-center gap-2"><Icon name="video" size={14} />Cabinet · Domicile · Visio</span>
-      </div>
-      <a href={`tel:${SITE.phoneTel}`} class="inline-flex items-center gap-2 text-ink hover:text-primary-text">
-        <Icon name="phone" size={14} />{SITE.phone}
-      </a>
+    <div class="hidden bg-primary-soft lg:block">
+        <div class="container-x flex items-center justify-between py-2.5 text-[13px] text-ink-soft">
+            <div class="flex items-center gap-7">
+                <span class="inline-flex items-center gap-2">
+                    <Icon name="map-pin" size={14} />
+                    {SITE.place}, {SITE.city}
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <Icon name="car" size={14} />
+                    Parking gratuit
+                </span>
+                <span class="inline-flex items-center gap-2">
+                    <Icon name="video" size={14} />
+                    Cabinet · Domicile · Visio
+                </span>
+            </div>
+            <a
+                href={`tel:${SITE.phoneTel}`}
+                class="inline-flex items-center gap-2 text-ink hover:text-primary-text"
+            >
+                <Icon name="phone" size={14} />
+                {SITE.phone}
+            </a>
+        </div>
     </div>
-  </div>
 
-  <nav class="container-x flex h-[72px] items-center justify-between border-b border-line/60 lg:h-[90px]" aria-label="Navigation principale">
-    <a href="/" aria-label={`${SITE.name} — accueil`} class="shrink-0">
-      <img src="/images/logo.webp" alt={`Logo ${SITE.name}, thérapeute à ${SITE.city}`} width="149" height="34" class="h-[34px] w-[149px]" />
-    </a>
+    <nav
+        class="container-x flex h-[72px] items-center justify-between border-b border-line/60 lg:h-[90px]"
+        aria-label="Navigation principale"
+    >
+        <a href="/" aria-label={`${SITE.name} — accueil`} class="shrink-0">
+            <img
+                src="/images/logo.webp"
+                alt={`Logo ${SITE.name}, thérapeute à ${SITE.city}`}
+                width="149"
+                height="34"
+                class="h-[34px] w-[149px]"
+            />
+        </a>
 
-    <ul class="hidden items-center gap-10 lg:flex">
-      {NAV.map((l) => (
-        <li>
-          <a
-            href={l.href}
-            aria-current={pathname === l.href ? 'page' : undefined}
-            class="text-[15px] font-medium text-ink transition hover:text-primary-text aria-[current=page]:text-primary-text"
-          >{l.label}</a>
-        </li>
-      ))}
-    </ul>
+        <ul class="hidden items-center gap-10 lg:flex">
+            {NAV.map((l) => (
+                <li>
+                    <a
+                        href={l.href}
+                        aria-current={pathname === l.href ? "page" : undefined}
+                        class="text-[15px] font-medium text-ink transition hover:text-primary-text aria-[current=page]:text-primary-text"
+                    >
+                        {l.label}
+                    </a>
+                </li>
+            ))}
+        </ul>
 
-    <div class="flex items-center gap-3">
-      <a href={SITE.resalib} target="_blank" rel="noopener" class="hidden items-center gap-2 rounded-lg bg-primary-strong px-[22px] py-[13px] text-[15px] font-semibold text-white transition hover:bg-primary-text sm:inline-flex">
-        <Icon name="calendar-check" size={16} />Prendre rendez-vous
-      </a>
-      <button id="menu-toggle" type="button" class="inline-flex size-11 items-center justify-center rounded-lg border border-line lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu">
-        <Icon name="menu" size={22} />
-      </button>
+        <div class="flex items-center gap-3">
+            <a
+                href={SITE.resalib}
+                target="_blank"
+                rel="noopener"
+                class="hidden items-center gap-2 rounded-lg bg-primary-strong px-[22px] py-[13px] text-[15px] font-semibold text-white transition hover:bg-primary-text sm:inline-flex"
+            >
+                <Icon name="calendar-check" size={16} />
+                Prendre rendez-vous
+            </a>
+            <button
+                id="menu-toggle"
+                type="button"
+                class="inline-flex size-11 items-center justify-center rounded-lg border border-line lg:hidden"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                aria-label="Ouvrir le menu"
+            >
+                <Icon name="menu" size={22} />
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-b border-line bg-bg lg:hidden">
+        <ul class="container-x flex flex-col py-3">
+            {NAV.map((l) => (
+                <li>
+                    <a
+                        href={l.href}
+                        class="block border-b border-line/60 py-3.5 text-base font-medium"
+                    >
+                        {l.label}
+                    </a>
+                </li>
+            ))}
+            <li class="py-4">
+                <a
+                    href={SITE.resalib}
+                    target="_blank"
+                    rel="noopener"
+                    class="btn-primary w-full"
+                >
+                    <Icon name="calendar-check" size={16} />
+                    Prendre rendez-vous
+                </a>
+            </li>
+        </ul>
     </div>
-  </nav>
-
-  <div id="mobile-menu" class="hidden border-b border-line bg-bg lg:hidden">
-    <ul class="container-x flex flex-col py-3">
-      {NAV.map((l) => (
-        <li><a href={l.href} class="block border-b border-line/60 py-3.5 text-base font-medium">{l.label}</a></li>
-      ))}
-      <li class="py-4">
-        <a href={SITE.resalib} target="_blank" rel="noopener" class="btn-primary w-full"><Icon name="calendar-check" size={16} />Prendre rendez-vous</a>
-      </li>
-    </ul>
-  </div>
 </header>

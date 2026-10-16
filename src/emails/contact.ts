@@ -1,34 +1,44 @@
 export interface ContactEmailData {
-  nom: string;
-  tel?: string;
-  email: string;
-  sujet: string;
-  message?: string;
-  siteName: string;
-  siteUrl: string;
-  test?: boolean;
+    nom: string;
+    tel?: string;
+    email: string;
+    sujet: string;
+    message?: string;
+    siteName: string;
+    siteUrl: string;
+    test?: boolean;
 }
 
 const COLORS = {
-  bg: '#FBFAF7',
-  surface: '#FFFFFF',
-  ink: '#18232D',
-  inkSoft: '#52606C',
-  line: '#E6E8EA',
-  primary: '#46B5EC',
-  primaryStrong: '#187BB3',
-  primaryText: '#1673A8',
-  primarySoft: '#EAF6FD',
-  accent: '#B35C2A',
+    bg: "#FBFAF7",
+    surface: "#FFFFFF",
+    ink: "#18232D",
+    inkSoft: "#52606C",
+    line: "#E6E8EA",
+    primary: "#46B5EC",
+    primaryStrong: "#187BB3",
+    primaryText: "#1673A8",
+    primarySoft: "#EAF6FD",
+    accent: "#B35C2A",
 };
 
 const SERIF = "Georgia, 'Times New Roman', serif";
 const SANS = "'Segoe UI', Helvetica, Arial, sans-serif";
 
 const escapeHtml = (value: string) =>
-  value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+    value.replace(
+        /[&<>"']/g,
+        (c) =>
+            ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+            })[c]!,
+    );
 
-const telHref = (tel: string) => tel.replace(/[^\d+]/g, '');
+const telHref = (tel: string) => tel.replace(/[^\d+]/g, "");
 
 const row = (label: string, value: string) => `
   <tr>
@@ -37,13 +47,15 @@ const row = (label: string, value: string) => `
   </tr>`;
 
 export function renderContactEmail(data: ContactEmailData) {
-  const nom = escapeHtml(data.nom);
-  const email = escapeHtml(data.email);
-  const sujet = escapeHtml(data.sujet);
-  const tel = data.tel ? escapeHtml(data.tel) : '';
-  const message = data.message ? escapeHtml(data.message).replace(/\r?\n/g, '<br />') : '';
+    const nom = escapeHtml(data.nom);
+    const email = escapeHtml(data.email);
+    const sujet = escapeHtml(data.sujet);
+    const tel = data.tel ? escapeHtml(data.tel) : "";
+    const message = data.message
+        ? escapeHtml(data.message).replace(/\r?\n/g, "<br />")
+        : "";
 
-  const html = `<!doctype html>
+    const html = `<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
@@ -67,7 +79,7 @@ export function renderContactEmail(data: ContactEmailData) {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background:${COLORS.primarySoft};padding:32px 36px;">
-                      ${data.test ? `<p style="margin:0 0 12px;font-family:${SANS};font-size:12px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:${COLORS.accent};">Message de test</p>` : ''}
+                      ${data.test ? `<p style="margin:0 0 12px;font-family:${SANS};font-size:12px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:${COLORS.accent};">Message de test</p>` : ""}
                       <p style="margin:0 0 8px;font-family:${SANS};font-size:12px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:${COLORS.primaryText};">Nouvelle demande</p>
                       <h1 style="margin:0;font-family:${SERIF};font-size:28px;line-height:1.2;font-weight:normal;color:${COLORS.ink};">${nom} souhaite vous contacter</h1>
                     </td>
@@ -75,9 +87,9 @@ export function renderContactEmail(data: ContactEmailData) {
                   <tr>
                     <td style="padding:12px 36px 8px;">
                       <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                        ${row('Consultation', `<span style="display:inline-block;background:${COLORS.primarySoft};color:${COLORS.primaryText};border-radius:6px;padding:4px 12px;font-size:14px;font-weight:600;">${sujet}</span>`)}
-                        ${row('E-mail', `<a href="mailto:${email}" style="color:${COLORS.primaryText};text-decoration:none;">${email}</a>`)}
-                        ${tel ? row('Téléphone', `<a href="tel:${telHref(data.tel!)}" style="color:${COLORS.primaryText};text-decoration:none;">${tel}</a>`) : ''}
+                        ${row("Consultation", `<span style="display:inline-block;background:${COLORS.primarySoft};color:${COLORS.primaryText};border-radius:6px;padding:4px 12px;font-size:14px;font-weight:600;">${sujet}</span>`)}
+                        ${row("E-mail", `<a href="mailto:${email}" style="color:${COLORS.primaryText};text-decoration:none;">${email}</a>`)}
+                        ${tel ? row("Téléphone", `<a href="tel:${telHref(data.tel!)}" style="color:${COLORS.primaryText};text-decoration:none;">${tel}</a>`) : ""}
                       </table>
                     </td>
                   </tr>
@@ -99,16 +111,16 @@ export function renderContactEmail(data: ContactEmailData) {
   </body>
 </html>`;
 
-  const text = [
-    `${data.test ? '[TEST] ' : ''}Nouvelle demande de contact`,
-    '',
-    `Nom : ${data.nom}`,
-    `E-mail : ${data.email}`,
-    `Téléphone : ${data.tel || 'non renseigné'}`,
-    `Consultation pour : ${data.sujet}`,
-    '',
-    data.message || '(pas de message)',
-  ].join('\n');
+    const text = [
+        `${data.test ? "[TEST] " : ""}Nouvelle demande de contact`,
+        "",
+        `Nom : ${data.nom}`,
+        `E-mail : ${data.email}`,
+        `Téléphone : ${data.tel || "non renseigné"}`,
+        `Consultation pour : ${data.sujet}`,
+        "",
+        data.message || "(pas de message)",
+    ].join("\n");
 
-  return { html, text };
+    return { html, text };
 }

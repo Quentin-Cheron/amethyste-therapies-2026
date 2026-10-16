@@ -1,112 +1,221 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Breadcrumb from '../components/Breadcrumb.astro';
-import Icon from '../components/Icon.astro';
-import CtaFinal from '../components/CtaFinal.astro';
-import { SITE, TARIFS_TABLE } from '../data/site';
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Icon from "../components/Icon.astro";
+import CtaFinal from "../components/CtaFinal.astro";
+import { SITE, TARIFS_TABLE } from "../data/site";
 
-const tabs = ['Enfants', 'Adolescents', 'Adultes', 'Étudiants', 'Couple', 'Famille', 'À domicile'];
+const tabs = [
+    "Enfants",
+    "Adolescents",
+    "Adultes",
+    "Étudiants",
+    "Couple",
+    "Famille",
+    "À domicile",
+];
 const adultes = [
-  { t: 'Première consultation', price: '65 €', dur: '55 min', items: ['Bilan de votre demande', 'Définition des objectifs', 'Premiers outils concrets'], featured: false },
-  { t: 'Séance de suivi', price: '80 €', dur: '1h15', items: ['Psychothérapie, hypnose, EMDR', 'ICV, PNL, EFT selon besoin', 'Cabinet ou téléconsultation'], featured: true },
+    {
+        t: "Première consultation",
+        price: "65 €",
+        dur: "55 min",
+        items: [
+            "Bilan de votre demande",
+            "Définition des objectifs",
+            "Premiers outils concrets",
+        ],
+        featured: false,
+    },
+    {
+        t: "Séance de suivi",
+        price: "80 €",
+        dur: "1h15",
+        items: [
+            "Psychothérapie, hypnose, EMDR",
+            "ICV, PNL, EFT selon besoin",
+            "Cabinet ou téléconsultation",
+        ],
+        featured: true,
+    },
 ];
 const infos = [
-  ['Réservation 24h/24', `En ligne sur Resalib, ou par téléphone au ${SITE.phone}.`],
-  ['Cabinet ou visio', 'Même tarif au cabinet (parking gratuit) ou en téléconsultation.'],
-  ['Remboursement', 'Non pris en charge par la Sécurité sociale. Certaines mutuelles remboursent les thérapies brèves : renseignez-vous.'],
+    [
+        "Réservation 24h/24",
+        `En ligne sur Resalib, ou par téléphone au ${SITE.phone}.`,
+    ],
+    [
+        "Cabinet ou visio",
+        "Même tarif au cabinet (parking gratuit) ou en téléconsultation.",
+    ],
+    [
+        "Remboursement",
+        "Non pris en charge par la Sécurité sociale. Certaines mutuelles remboursent les thérapies brèves : renseignez-vous.",
+    ],
 ];
 
-const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Tarifs' }];
+const crumbs = [{ label: "Accueil", href: "/" }, { label: "Tarifs" }];
 const ld = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
-      { '@type': 'ListItem', position: 2, name: 'Tarifs', item: `${SITE.url}/tarifs` },
-    ],
-  },
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Accueil",
+                item: SITE.url,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Tarifs",
+                item: `${SITE.url}/tarifs`,
+            },
+        ],
+    },
 ];
 ---
+
 <Layout
-  title="Tarifs des séances de thérapie à Salon-de-Provence | Dès 55 €"
-  description="Tarifs EMDR, hypnose, TCC, coaching : 1re consultation adulte 65 € (55 min), suivi 80 € (1h15). Enfants dès 55 €. Cabinet, domicile ou visio, parking gratuit."
-  jsonLd={ld}
+    title="Tarifs des séances de thérapie à Salon-de-Provence | Dès 55 €"
+    description="Tarifs EMDR, hypnose, TCC, coaching : 1re consultation adulte 65 € (55 min), suivi 80 € (1h15). Enfants dès 55 €. Cabinet, domicile ou visio, parking gratuit."
+    jsonLd={ld}
 >
-  <section class="container-x flex flex-col gap-7 pb-12 pt-10 lg:pt-16">
-    <Breadcrumb items={crumbs} />
-    <div data-hero class="flex flex-col gap-6">
-      <h1 class="max-w-[900px] text-4xl sm:text-5xl xl:text-[56px]">Tarifs des séances de thérapie à Salon-de-Provence</h1>
-      <p class="max-w-[640px] text-lg leading-relaxed text-ink-soft">
-        Psychothérapie, hypnose, EMDR, ICV, PNL et coaching. Tous les rendez-vous peuvent avoir lieu au cabinet ou en téléconsultation.
-      </p>
-    </div>
-    <ul class="flex flex-wrap gap-2" aria-label="Tarifs par public">
-      {tabs.map((t) => (
-        <li>
-          <a href={`#${t === 'Adultes' ? 'adultes' : 'tous-les-tarifs'}`} class:list={['chip px-4 py-2.5 text-[15px] transition hover:border-primary', t === 'Adultes' && 'border-ink bg-ink text-white']}>{t}</a>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section id="adultes" class="container-x pb-16 md:pb-24">
-    <div data-stagger class="grid gap-5 md:grid-cols-2">
-      {adultes.map((c) => (
-        <article class:list={['flex flex-col gap-6 rounded-xl border p-8 lg:p-10', c.featured ? 'border-primary bg-primary-soft' : 'border-line bg-surface']}>
-          <h2 class="text-3xl">{c.t}</h2>
-          <p class="flex items-baseline gap-3"><span class="font-serif text-6xl leading-none text-primary-text">{c.price}</span><span class="text-ink-soft">· {c.dur}</span></p>
-          <ul class="flex flex-1 flex-col gap-3">
-            {c.items.map((i) => <li class="flex items-center gap-3 text-[15px]"><Icon name="check" size={18} class="shrink-0 text-primary-text" />{i}</li>)}
-          </ul>
-          <a href={SITE.resalib} target="_blank" rel="noopener" class={c.featured ? 'btn-primary' : 'btn-secondary'}>Réserver sur Resalib</a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section id="tous-les-tarifs" class="bg-surface" aria-labelledby="tous">
-    <div class="container-x section-y flex flex-col gap-10">
-      <h2 id="tous" data-reveal class="text-4xl sm:text-[2.5rem]">Tous les tarifs</h2>
-      <div data-reveal class="overflow-x-auto">
-        <table class="w-full min-w-[560px] border-collapse text-left">
-          <thead>
-            <tr class="border-b border-ink text-xs font-bold uppercase tracking-[0.6px] text-ink-soft">
-              <th scope="col" class="py-4 pr-6">Public</th>
-              <th scope="col" class="py-4 pr-6">1re consultation</th>
-              <th scope="col" class="py-4">Suivi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {TARIFS_TABLE.map((r) => (
-              <tr class="border-b border-line">
-                <th scope="row" class="py-5 pr-6 font-serif text-xl font-normal">{r.public}</th>
-                {'first' in r ? (
-                  <>
-                    <td class="py-5 pr-6">{r.first}</td>
-                    <td class="py-5">{r.follow}</td>
-                  </>
-                ) : (
-                  <td colspan="2" class="py-5"><a href="/contact" class="link-arrow">Me contacter pour le tarif <Icon name="arrow-right" size={16} /></a></td>
-                )}
-              </tr>
+    <section class="container-x flex flex-col gap-7 pb-12 pt-10 lg:pt-16">
+        <Breadcrumb items={crumbs} />
+        <div data-hero class="flex flex-col gap-6">
+            <h1 class="max-w-[900px] text-4xl sm:text-5xl xl:text-[56px]">
+                Tarifs des séances de thérapie à Salon-de-Provence
+            </h1>
+            <p class="max-w-[640px] text-lg leading-relaxed text-ink-soft">
+                Psychothérapie, hypnose, EMDR, ICV, PNL et coaching. Tous les
+                rendez-vous peuvent avoir lieu au cabinet ou en
+                téléconsultation.
+            </p>
+        </div>
+        <ul class="flex flex-wrap gap-2" aria-label="Tarifs par public">
+            {tabs.map((t) => (
+                <li>
+                    <a
+                        href={`#${t === "Adultes" ? "adultes" : "tous-les-tarifs"}`}
+                        class:list={[
+                            "chip px-4 py-2.5 text-[15px] transition hover:border-primary",
+                            t === "Adultes" && "border-ink bg-ink text-white",
+                        ]}
+                    >
+                        {t}
+                    </a>
+                </li>
             ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+        </ul>
+    </section>
 
-  <section class="container-x section-y" aria-label="Informations pratiques">
-    <ul data-stagger class="grid gap-10 md:grid-cols-3">
-      {infos.map(([t, d]) => (
-        <li class="flex flex-col gap-3 border-t border-line pt-6">
-          <h2 class="text-2xl">{t}</h2>
-          <p class="leading-relaxed text-ink-soft">{d}</p>
-        </li>
-      ))}
-    </ul>
-  </section>
+    <section id="adultes" class="container-x pb-16 md:pb-24">
+        <div data-stagger class="grid gap-5 md:grid-cols-2">
+            {adultes.map((c) => (
+                <article
+                    class:list={[
+                        "flex flex-col gap-6 rounded-xl border p-8 lg:p-10",
+                        c.featured
+                            ? "border-primary bg-primary-soft"
+                            : "border-line bg-surface",
+                    ]}
+                >
+                    <h2 class="text-3xl">{c.t}</h2>
+                    <p class="flex items-baseline gap-3">
+                        <span class="font-serif text-6xl leading-none text-primary-text">
+                            {c.price}
+                        </span>
+                        <span class="text-ink-soft">· {c.dur}</span>
+                    </p>
+                    <ul class="flex flex-1 flex-col gap-3">
+                        {c.items.map((i) => (
+                            <li class="flex items-center gap-3 text-[15px]">
+                                <Icon
+                                    name="check"
+                                    size={18}
+                                    class="shrink-0 text-primary-text"
+                                />
+                                {i}
+                            </li>
+                        ))}
+                    </ul>
+                    <a
+                        href={SITE.resalib}
+                        target="_blank"
+                        rel="noopener"
+                        class={c.featured ? "btn-primary" : "btn-secondary"}
+                    >
+                        Réserver sur Resalib
+                    </a>
+                </article>
+            ))}
+        </div>
+    </section>
 
-  <CtaFinal />
+    <section id="tous-les-tarifs" class="bg-surface" aria-labelledby="tous">
+        <div class="container-x section-y flex flex-col gap-10">
+            <h2 id="tous" data-reveal class="text-4xl sm:text-[2.5rem]">
+                Tous les tarifs
+            </h2>
+            <div data-reveal class="overflow-x-auto">
+                <table class="w-full min-w-[560px] border-collapse text-left">
+                    <thead>
+                        <tr class="border-b border-ink text-xs font-bold uppercase tracking-[0.6px] text-ink-soft">
+                            <th scope="col" class="py-4 pr-6">
+                                Public
+                            </th>
+                            <th scope="col" class="py-4 pr-6">
+                                1re consultation
+                            </th>
+                            <th scope="col" class="py-4">
+                                Suivi
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {TARIFS_TABLE.map((r) => (
+                            <tr class="border-b border-line">
+                                <th
+                                    scope="row"
+                                    class="py-5 pr-6 font-serif text-xl font-normal"
+                                >
+                                    {r.public}
+                                </th>
+                                {"first" in r ? (
+                                    <>
+                                        <td class="py-5 pr-6">{r.first}</td>
+                                        <td class="py-5">{r.follow}</td>
+                                    </>
+                                ) : (
+                                    <td colspan="2" class="py-5">
+                                        <a href="/contact" class="link-arrow">
+                                            Me contacter pour le tarif{" "}
+                                            <Icon
+                                                name="arrow-right"
+                                                size={16}
+                                            />
+                                        </a>
+                                    </td>
+                                )}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-x section-y" aria-label="Informations pratiques">
+        <ul data-stagger class="grid gap-10 md:grid-cols-3">
+            {infos.map(([t, d]) => (
+                <li class="flex flex-col gap-3 border-t border-line pt-6">
+                    <h2 class="text-2xl">{t}</h2>
+                    <p class="leading-relaxed text-ink-soft">{d}</p>
+                </li>
+            ))}
+        </ul>
+    </section>
+
+    <CtaFinal />
 </Layout>
